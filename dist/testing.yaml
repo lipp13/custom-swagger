@@ -1,0 +1,189 @@
+openapi: 3.0.3
+info: 
+  title: Testing API Documentation
+  version: "1.0.0"
+servers:
+  - url: https://sihka.dev-tunnels.id
+paths:
+  /api/v1/master/pengelola:
+    get:
+      summary: PENGELOLA [MASTER]
+      parameters:
+      - name: format
+        in: query
+        required: true
+        schema:
+          type: string
+          example: JSON
+      responses:
+        '200':
+          description: Request berhasil.
+  /api/v1/master/ws:
+    get:
+      summary: WILAYAH SUNGAI [MASTER]
+      parameters:
+      - name: ws_id
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 19e8966f-e150-429f-bdf7-636e14a693c2
+      responses:
+        '200':
+          description: Request berhasil.
+  /api/v3/master/province:
+    get:
+      summary: PROVINCE [MASTER]
+      parameters:
+      - name: format
+        in: query
+        required: true
+        schema:
+          type: string
+          example: JSON
+      responses:
+        '200':
+          description: Request berhasil.
+  /api/v3/master/kabupaten:
+    get:
+      summary: KABUPATEN/KOTA [MASTER]
+      parameters:
+      - name: format
+        in: query
+        required: true
+        schema:
+          type: string
+          example: JSON
+      responses:
+        '200':
+          description: Request berhasil.
+  /api/v3/master/kecamatan:
+    get:
+      summary: KECAMATAN [MASTER]
+      parameters:
+      - name: prov
+        in: query
+        required: true
+        schema:
+          type: string
+          example: GORONTALO
+      - name: kab
+        in: query
+        required: true
+        schema:
+          type: string
+          example: KAB. BOALEMO
+      responses:
+        '200':
+          description: Request berhasil.
+  /api/v3/master/desa:
+    get:
+      summary: KELURAHAN/DESA [MASTER]
+      parameters:
+      - name: prov
+        in: query
+        required: true
+        schema:
+          type: string
+          example: GORONTALO
+      - name: kab
+        in: query
+        required: true
+        schema:
+          type: string
+          example: KAB. BOALEMO
+      - name: kec
+        in: query
+        required: true
+        schema:
+          type: string
+          example: MANANGGU
+      responses:
+        '200':
+          description: Request berhasil.
+  /api/v3/location/geo:
+    post:
+      summary: GEO LOCATION
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - coordinate
+                - geo_river
+                - geo_irrigation
+                - with_id
+                - radius
+              properties:
+                coordinate:
+                  type: string
+                  example: "108.5072021,-6.80781889"
+                geo_river:
+                  type: boolean
+                  example: false
+                geo_irrigation:
+                  type: boolean
+                  example: true
+                with_id:
+                  type: boolean
+                  example: true
+                radius:
+                  type: integer
+                  minimum: 0
+                  maximum: 50
+                  example: 0
+      responses:
+        '200':
+          description: Request berhasil  
+  /api/v2/location/geo_internal:
+    post:
+      summary: GEO LOCATION INTERNAL
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - coordinate
+                - geo_river
+                - with_id
+              properties:
+                coordinate:
+                  type: string
+                  example: "101.5199,1.6414"
+                geo_river:
+                  type: boolean
+                  example: true
+                with_id:
+                  type: boolean
+                  example: true
+      responses:
+        '200':
+          description: Request berhasil
+  
+  /api/v1/area/sungai:
+    get:
+      summary: SUNGAI
+      parameters:
+        - name: ws
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 19e8966f-e150-429f-bdf7-636e14a693c2
+        - name: ordo
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 4
+            example: 1
+      responses:
+        '200':
+          description: Request berhasil
